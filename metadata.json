@@ -1,0 +1,8 @@
+{
+  "name": "HireQuest AI: Interview Pro",
+  "description": "An advanced AI-powered interview preparation platform using Gemini Live for real-time voice practice and comprehensive feedback.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
