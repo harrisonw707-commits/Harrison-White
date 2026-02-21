@@ -1,0 +1,12 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-west1-docker.pkg.dev/$PROJECT_ID/hireme-repo/hireme-image', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-west1-docker.pkg.dev/$PROJECT_ID/hireme-repo/hireme-image']
+
+images:
+  - 'us-west1-docker.pkg.dev/$PROJECT_ID/hireme-repo/hireme-image'
