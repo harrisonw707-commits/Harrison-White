@@ -9,6 +9,8 @@ COPY . .
 
 RUN npm run build
 
+RUN npm install -g serve
+
 EXPOSE 8080
 
-CMD ["sh", "-c", "npm run preview -- --host 0.0.0.0 --port $PORT"]
+CMD ["sh", "-c", "serve -s dist -l $PORT"]
