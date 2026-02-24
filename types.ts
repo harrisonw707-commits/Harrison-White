@@ -1,4 +1,10 @@
 
+export interface User {
+  name: string;
+  email: string;
+  isPro?: boolean;
+}
+
 export enum InterviewDifficulty {
   EASY = 'Entry Level',
   MEDIUM = 'Experienced / Lead',

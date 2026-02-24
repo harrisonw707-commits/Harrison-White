@@ -12,12 +12,12 @@ const HelpOverlay: React.FC<HelpOverlayProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex justify-end animate-in fade-in duration-300">
       <div 
-        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
       
-      <div className="relative w-full max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-500">
-        <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+      <div className="relative w-full max-w-md bg-black border-l border-slate-800 shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-500">
+        <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-black/50">
           <div>
             <h2 className="text-xl font-bold">Platform Guide</h2>
             <p className="text-xs text-slate-500 uppercase tracking-widest font-black mt-1">Mastering Your Session</p>
@@ -34,7 +34,7 @@ const HelpOverlay: React.FC<HelpOverlayProps> = ({ isOpen, onClose }) => {
           {/* Section: Video Practice */}
           <section className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-500">
+              <div className="w-10 h-10 bg-yellow-400/20 rounded-xl flex items-center justify-center text-yellow-400">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 00-2 2z" /></svg>
               </div>
               <h3 className="font-bold text-lg">Video & Visual Analysis</h3>
@@ -44,11 +44,11 @@ const HelpOverlay: React.FC<HelpOverlayProps> = ({ isOpen, onClose }) => {
             </p>
             <div className="grid grid-cols-2 gap-3 mt-4">
                <div className="bg-slate-800/40 p-3 rounded-xl border border-slate-700">
-                  <div className="text-[10px] font-black text-blue-400 uppercase mb-1">Eye Contact</div>
+                  <div className="text-[10px] font-black text-yellow-400 uppercase mb-1">Eye Contact</div>
                   <p className="text-[9px] text-slate-500">Maintains focus on the lens, projecting confidence.</p>
                </div>
                <div className="bg-slate-800/40 p-3 rounded-xl border border-slate-700">
-                  <div className="text-[10px] font-black text-blue-400 uppercase mb-1">Posture</div>
+                  <div className="text-[10px] font-black text-yellow-400 uppercase mb-1">Posture</div>
                   <p className="text-[9px] text-slate-500">Detects slouching or unengaged physical positioning.</p>
                </div>
             </div>
@@ -109,12 +109,12 @@ const HelpOverlay: React.FC<HelpOverlayProps> = ({ isOpen, onClose }) => {
           {/* Section: Privacy & Security */}
           <section className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-500">
+              <div className="w-10 h-10 bg-yellow-400/20 rounded-xl flex items-center justify-center text-yellow-400">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
               </div>
               <h3 className="font-bold text-lg">Your Privacy</h3>
             </div>
-            <div className="bg-blue-600/10 p-5 rounded-2xl border border-blue-500/20">
+            <div className="bg-yellow-400/10 p-5 rounded-2xl border border-yellow-400/20">
               <p className="text-xs text-slate-300 leading-relaxed">
                 Your video recording is <strong className="text-white">temporary</strong>. The session recording is stored as a Blob URL in your browser's memory. Once you refresh or close the tab, the video is gone. 
                 <br/><br/>
@@ -124,10 +124,10 @@ const HelpOverlay: React.FC<HelpOverlayProps> = ({ isOpen, onClose }) => {
           </section>
         </div>
 
-        <div className="p-6 border-t border-slate-800 bg-slate-900/50">
+        <div className="p-6 border-t border-slate-800 bg-black/50">
           <button 
             onClick={onClose}
-            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all text-sm shadow-xl shadow-blue-900/20"
+            className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-black rounded-2xl font-bold transition-all text-sm shadow-xl shadow-yellow-400/20"
           >
             Ready to Practice
           </button>
