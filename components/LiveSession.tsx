@@ -201,19 +201,19 @@ const LiveSession: React.FC<LiveSessionProps> = ({
     <div className="w-full max-w-4xl mx-auto space-y-8 animate-in fade-in zoom-in-95 duration-500">
       <div className="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col items-center">
         {isActive && (
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent animate-pulse" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent animate-pulse" />
         )}
         
-        <div className={`relative w-48 h-48 md:w-64 md:h-64 rounded-full border-4 transition-all duration-700 ${isActive ? 'border-yellow-400 shadow-[0_0_50px_rgba(250,204,21,0.3)]' : 'border-slate-800'}`}>
+        <div className={`relative w-48 h-48 md:w-64 md:h-64 rounded-full border-4 transition-all duration-700 ${isActive ? 'border-red-500 shadow-[0_0_50px_rgba(220,38,38,0.3)]' : 'border-slate-800'}`}>
            {useCamera ? (
              <video ref={videoRef} autoPlay muted playsInline className="w-full h-full object-cover rounded-full grayscale-[20%]" />
            ) : (
-             <div className="w-full h-full bg-black rounded-full flex items-center justify-center text-slate-700">
-                <svg className={`w-24 h-24 ${isActive ? 'text-yellow-400 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-slate-700">
+                <svg className={`w-24 h-24 ${isActive ? 'text-red-500 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
              </div>
            )}
            {isActive && (
-             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1 bg-yellow-400 text-[10px] font-black uppercase rounded-full tracking-widest text-black shadow-lg">Live</div>
+             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-[10px] font-black uppercase rounded-full tracking-widest text-white shadow-lg">Live</div>
            )}
         </div>
 
@@ -224,8 +224,8 @@ const LiveSession: React.FC<LiveSessionProps> = ({
            </p>
         </div>
 
-        <div className={`mt-8 w-full max-w-2xl min-h-[100px] bg-black/60 border border-slate-800 rounded-3xl p-6 transition-all ${currentModelText ? 'opacity-100' : 'opacity-40'}`}>
-           <div className="text-[10px] font-black text-yellow-400 uppercase tracking-widest mb-3">Interviewer Voice</div>
+        <div className={`mt-8 w-full max-w-2xl min-h-[100px] bg-slate-950/60 border border-slate-800 rounded-3xl p-6 transition-all ${currentModelText ? 'opacity-100' : 'opacity-40'}`}>
+           <div className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-3">Interviewer Voice</div>
            <div className="text-slate-200 text-sm leading-relaxed font-medium italic">
              {currentModelText || (isActive ? "Awaiting your first word..." : "Connect to start.")}
            </div>
@@ -235,7 +235,7 @@ const LiveSession: React.FC<LiveSessionProps> = ({
           {!isActive ? (
             <button 
               onClick={startSession} 
-              className="px-16 py-5 bg-yellow-400 text-black rounded-full font-black uppercase tracking-widest text-sm shadow-2xl shadow-yellow-400/20 hover:bg-yellow-500 hover:scale-105 transition-all active:scale-95"
+              className="px-16 py-5 bg-red-600 text-white rounded-full font-black uppercase tracking-widest text-sm shadow-2xl shadow-red-900/40 hover:bg-red-700 hover:scale-105 transition-all active:scale-95"
             >
               Connect Now
             </button>

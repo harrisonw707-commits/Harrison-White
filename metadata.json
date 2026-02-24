@@ -1,6 +1,6 @@
 {
-  "name": "HireQuest AI: Interview Pro",
-  "description": "An advanced AI-powered interview preparation platform using Gemini Live for real-time voice practice and comprehensive feedback.",
+  "name": "Envision Paths",
+  "description": "Master your career path with AI-powered interview preparation and real-time coaching.",
   "requestFramePermissions": [
     "microphone",
     "camera"

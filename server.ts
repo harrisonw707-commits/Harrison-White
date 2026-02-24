@@ -60,7 +60,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "HireQuest AI Pro",
+              name: "Envision Paths Pro",
               description: "Lifetime access to advanced interview simulations and detailed feedback.",
             },
             unit_amount: 999, // $9.99
@@ -108,18 +108,6 @@ if (process.env.NODE_ENV !== "production") {
   });
   
   app.use(vite.middlewares);
-
-  app.use("*", async (req, res, next) => {
-    const url = req.originalUrl;
-    try {
-      let template = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf-8");
-      template = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(template);
-    } catch (e: any) {
-      vite.ssrFixStacktrace(e);
-      next(e);
-    }
-  });
 } else {
   app.use(express.static("dist"));
   app.get("*", (req, res) => {
@@ -131,4 +119,6 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`[SYSTEM CHECK] Server running on http://localhost:${PORT}`);
   console.log(`[SYSTEM CHECK] Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(`[SYSTEM CHECK] Stripe Key Set: ${!!process.env.STRIPE_SECRET_KEY}`);
+  console.log(`[SYSTEM CHECK] App URL: ${process.env.APP_URL || 'Not Set'}`);
+  console.log(`[SYSTEM CHECK] Directory: ${__dirname}`);
 });

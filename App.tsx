@@ -5,7 +5,10 @@ import LiveSession from './components/LiveSession';
 import FeedbackDisplay from './components/FeedbackDisplay';
 import HelpOverlay from './components/HelpOverlay';
 import AuthScreen from './components/AuthScreen';
+import Logo from './components/Logo';
 import { analyzeInterviewFeedback, generateInterviewScenario } from './services/geminiService';
+
+console.log("Envision Paths: App.tsx module loading...");
 
 const PREDEFINED_ROLES = [
   "Warehouse Associate", "Line Cook", "Prep Cook", "Dishwasher", "Delivery Driver",
@@ -48,7 +51,7 @@ const App: React.FC = () => {
 
   // Robust Auth Check on Mount
   useEffect(() => {
-    const savedUser = localStorage.getItem('hirequest_user');
+    const savedUser = localStorage.getItem('envision_user');
     if (savedUser) {
       try {
         const parsed = JSON.parse(savedUser);
@@ -56,21 +59,21 @@ const App: React.FC = () => {
           setUser(parsed);
         }
       } catch (e) {
-        localStorage.removeItem('hirequest_user');
+        localStorage.removeItem('envision_user');
       }
     }
 
-    const savedHistory = localStorage.getItem('hirequest_history');
+    const savedHistory = localStorage.getItem('envision_history');
     if (savedHistory) {
       try {
         setHistory(JSON.parse(savedHistory));
       } catch (e) {
-        localStorage.removeItem('hirequest_history');
+        localStorage.removeItem('envision_history');
       }
     }
 
-    const savedResume = localStorage.getItem('hirequest_resume') || '';
-    const savedJD = localStorage.getItem('hirequest_jd') || '';
+    const savedResume = localStorage.getItem('envision_resume') || '';
+    const savedJD = localStorage.getItem('envision_jd') || '';
     setConfig(prev => ({ ...prev, resumeText: savedResume, jobDescription: savedJD }));
     
     setIsInitialized(true);
@@ -87,11 +90,11 @@ const App: React.FC = () => {
       // For this demo, we'll optimistically update the user
       const updatedUser = { ...user, isPro: true };
       setUser(updatedUser);
-      localStorage.setItem('hirequest_user', JSON.stringify(updatedUser));
+      localStorage.setItem('envision_user', JSON.stringify(updatedUser));
       
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname);
-      alert("Welcome to HireQuest Pro! Your account has been upgraded.");
+      alert("Welcome to Envision Paths Pro! Your account has been upgraded.");
     } else if (paymentStatus === 'cancel') {
       window.history.replaceState({}, document.title, window.location.pathname);
       alert("Checkout cancelled.");
@@ -100,8 +103,8 @@ const App: React.FC = () => {
 
   // Sync Resume/JD to storage
   useEffect(() => {
-    localStorage.setItem('hirequest_resume', config.resumeText);
-    localStorage.setItem('hirequest_jd', config.jobDescription);
+    localStorage.setItem('envision_resume', config.resumeText);
+    localStorage.setItem('envision_jd', config.jobDescription);
   }, [config.resumeText, config.jobDescription]);
 
   // Generate Scenario
@@ -124,12 +127,12 @@ const App: React.FC = () => {
 
   const handleAuthenticate = (userData: { name: string; email: string }) => {
     setUser(userData);
-    localStorage.setItem('hirequest_user', JSON.stringify(userData));
+    localStorage.setItem('envision_user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('hirequest_user');
+    localStorage.removeItem('envision_user');
     setStep('onboarding');
   };
 
@@ -222,7 +225,7 @@ const App: React.FC = () => {
       
       const updatedHistory = [session, ...history].slice(0, 20);
       setHistory(updatedHistory);
-      localStorage.setItem('hirequest_history', JSON.stringify(updatedHistory.map(s => ({ ...s, videoUrl: undefined }))));
+      localStorage.setItem('envision_history', JSON.stringify(updatedHistory.map(s => ({ ...s, videoUrl: undefined }))));
       setCurrentSession(session);
       setStep('result');
     } catch (e) { 
@@ -244,19 +247,18 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30">
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-50 font-sans selection:bg-red-500/30">
       <header className="bg-slate-950 border-b border-slate-800 h-16 sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-          <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => setStep('onboarding')}>
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold shadow-lg shadow-blue-900/40 group-hover:scale-110 transition-transform">H</div>
-            <span className="font-bold text-xl tracking-tighter">HireQuest<span className="text-blue-500">AI</span></span>
+          <div className="flex items-center cursor-pointer group" onClick={() => setStep('onboarding')}>
+            <Logo size="sm" />
           </div>
           <div className="flex items-center space-x-6">
             {!user.isPro && (
               <button 
                 onClick={handleGoPro}
                 disabled={isPaying}
-                className={`hidden md:flex items-center space-x-2 px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-lg shadow-orange-900/20 ${isPaying ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`hidden md:flex items-center space-x-2 px-4 py-1.5 bg-gradient-to-r from-red-500 to-red-700 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-lg shadow-red-900/20 ${isPaying ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isPaying ? (
                   <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -267,7 +269,7 @@ const App: React.FC = () => {
               </button>
             )}
             <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-slate-900 rounded-full border border-slate-800">
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black uppercase ${user.isPro ? 'bg-amber-500 text-slate-950' : 'bg-blue-600'}`}>{user.name[0]}</div>
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black uppercase ${user.isPro ? 'bg-amber-500 text-slate-950' : 'bg-red-600'}`}>{user.name[0]}</div>
               <span className="text-xs font-bold text-slate-300">{user.name} {user.isPro && <span className="text-[8px] bg-amber-500/20 text-amber-500 px-1 rounded ml-1">PRO</span>}</span>
               <button onClick={handleLogout} className="ml-2 p-1 hover:text-red-400 transition-colors" title="Logout">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
@@ -286,10 +288,10 @@ const App: React.FC = () => {
           <div className="grid lg:grid-cols-12 gap-8 animate-in fade-in duration-700">
             <div className="lg:col-span-8 space-y-8">
               <section className="space-y-4">
-                <h2 className="text-xs font-black text-blue-500 uppercase tracking-widest">1. Position</h2>
+                <h2 className="text-xs font-black text-red-500 uppercase tracking-widest">1. Position</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   <select 
-                    className="w-full bg-slate-900 border border-slate-800 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 text-sm transition-all" 
+                    className="w-full bg-slate-900 border border-slate-800 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 text-sm transition-all" 
                     value={config.role} 
                     onChange={(e) => setConfig({...config, role: e.target.value})}
                   >
@@ -297,7 +299,7 @@ const App: React.FC = () => {
                   </select>
                   <input 
                     placeholder="Target Company" 
-                    className="w-full bg-slate-900 border border-slate-800 p-4 rounded-2xl outline-none text-sm transition-all focus:ring-2 focus:ring-blue-500" 
+                    className="w-full bg-slate-900 border border-slate-800 p-4 rounded-2xl outline-none text-sm transition-all focus:ring-2 focus:ring-red-500" 
                     value={config.company} 
                     onChange={(e) => setConfig({...config, company: e.target.value})} 
                   />
@@ -305,7 +307,7 @@ const App: React.FC = () => {
               </section>
 
               <section className="space-y-4">
-                <h2 className="text-xs font-black text-blue-500 uppercase tracking-widest">2. Persona</h2>
+                <h2 className="text-xs font-black text-red-500 uppercase tracking-widest">2. Persona</h2>
                 <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
                   {Object.values(InterviewerPersona).map((p) => {
                     const isSelected = config.persona === p;
@@ -313,7 +315,7 @@ const App: React.FC = () => {
                       <button 
                         key={p} 
                         onClick={() => setConfig({...config, persona: p})} 
-                        className={`p-5 rounded-3xl border-2 text-left transition-all relative overflow-hidden group ${isSelected ? 'bg-blue-600/10 border-blue-500' : 'bg-slate-900 border-slate-800 opacity-60 hover:opacity-100'}`}
+                        className={`p-5 rounded-3xl border-2 text-left transition-all relative overflow-hidden group ${isSelected ? 'bg-red-600/10 border-red-500' : 'bg-slate-900 border-slate-800 opacity-60 hover:opacity-100'}`}
                       >
                         <div className="text-sm font-bold mb-1">{p}</div>
                         <div className="text-[9px] text-slate-500 uppercase tracking-widest">Select Mode</div>
@@ -324,13 +326,13 @@ const App: React.FC = () => {
               </section>
 
               <section className="space-y-4">
-                <h2 className="text-xs font-black text-blue-500 uppercase tracking-widest">3. Experience Level</h2>
+                <h2 className="text-xs font-black text-red-500 uppercase tracking-widest">3. Experience Level</h2>
                 <div className="flex flex-wrap gap-3">
                   {Object.values(InterviewDifficulty).map((d) => (
                     <button 
                       key={d} 
                       onClick={() => setConfig({...config, difficulty: d})} 
-                      className={`px-6 py-2 rounded-full text-xs font-bold border transition-all ${config.difficulty === d ? 'bg-blue-600 border-blue-600' : 'bg-slate-900 border-slate-800 text-slate-500'}`}
+                      className={`px-6 py-2 rounded-full text-xs font-bold border transition-all ${config.difficulty === d ? 'bg-red-600 border-red-600' : 'bg-slate-900 border-slate-800 text-slate-500'}`}
                     >
                       {d}
                     </button>
@@ -341,7 +343,7 @@ const App: React.FC = () => {
               <div className="pt-6">
                 <button 
                   onClick={handleStart} 
-                  className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-lg shadow-xl shadow-blue-900/30 hover:bg-blue-700 transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center space-x-3"
+                  className="w-full py-5 bg-red-600 text-white rounded-3xl font-black text-lg shadow-xl shadow-red-900/30 hover:bg-red-700 transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center space-x-3"
                 >
                   <span>Launch Practice</span>
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -353,19 +355,19 @@ const App: React.FC = () => {
                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 h-full min-h-[400px] flex flex-col shadow-2xl relative overflow-hidden">
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xs font-black text-slate-500 uppercase tracking-widest">Scenario Builder</h2>
-                    {isGeneratingScenario && <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />}
+                    {isGeneratingScenario && <div className="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />}
                   </div>
                   
                   {scenario ? (
                     <div className="space-y-6 animate-in slide-in-from-right duration-500">
                        <div className="p-4 bg-slate-800/40 rounded-2xl border border-slate-800">
-                          <div className="text-[10px] font-black text-blue-400 uppercase mb-1">Company Detail</div>
+                          <div className="text-[10px] font-black text-red-400 uppercase mb-1">Company Detail</div>
                           <div className="text-xs text-slate-300 leading-relaxed">{scenario.companyDescription}</div>
                        </div>
                        <div className="space-y-3">
                           <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Example Questions</div>
                           {scenario.questions.slice(0, 3).map((q, i) => (
-                            <div key={i} className="text-[11px] p-3 bg-slate-950 border border-slate-800 rounded-xl italic text-slate-400 border-l-2 border-l-blue-500">"{q}"</div>
+                            <div key={i} className="text-[11px] p-3 bg-slate-950 border border-slate-800 rounded-xl italic text-slate-400 border-l-2 border-l-red-500">"{q}"</div>
                           ))}
                        </div>
                     </div>
@@ -387,8 +389,8 @@ const App: React.FC = () => {
         {step === 'analyzing' && (
           <div className="min-h-[50vh] flex flex-col items-center justify-center space-y-6 animate-in fade-in duration-1000">
              <div className="relative">
-                <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-blue-500 uppercase">AI</div>
+                <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-red-500 uppercase">AI</div>
              </div>
              <div className="text-center">
                 <h3 className="text-xl font-black mb-1">Scrutinizing Transcript</h3>
