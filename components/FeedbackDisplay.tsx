@@ -81,7 +81,7 @@ const FeedbackDisplay: React.FC<FeedbackProps> = ({ session, onRestart }) => {
                 {session.transcription.length > 0 ? (
                   session.transcription.map((line, i) => (
                     <div key={i} className={`text-[11px] leading-relaxed p-3 rounded-xl border ${line.startsWith('You:') ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-slate-800/40 border-slate-800'}`}>
-                      <span className={`font-bold uppercase tracking-widest ${line.startsWith('You:') ? 'text-emerald-400' : 'text-blue-400'}`}>{line.split(':')[0]}</span>
+                      <span className={`font-bold uppercase tracking-widest ${line.startsWith('You:') ? 'text-emerald-400' : 'text-red-400'}`}>{line.split(':')[0]}</span>
                       <span className="text-slate-400 ml-2">{line.split(':').slice(1).join(':')}</span>
                     </div>
                   ))

@@ -28,7 +28,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticate }) => {
     <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/10 blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/10 blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-900/10 blur-[150px] rounded-full" />
       </div>
 
       <div className="max-w-md w-full bg-slate-900/40 backdrop-blur-2xl border border-slate-800 rounded-[3rem] p-10 md:p-12 shadow-2xl animate-in zoom-in-95 duration-500 z-10">
