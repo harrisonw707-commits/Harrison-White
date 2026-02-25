@@ -60,7 +60,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "Envision Paths Pro",
+              name: "HireQuest AI Pro",
               description: "Lifetime access to advanced interview simulations and detailed feedback.",
             },
             unit_amount: 999, // $9.99

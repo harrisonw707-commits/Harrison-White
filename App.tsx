@@ -8,7 +8,7 @@ import AuthScreen from './components/AuthScreen';
 import Logo from './components/Logo';
 import { analyzeInterviewFeedback, generateInterviewScenario } from './services/geminiService';
 
-console.log("Envision Paths: App.tsx module loading...");
+console.log("HireQuest AI: App.tsx module loading...");
 
 const PREDEFINED_ROLES = [
   "Warehouse Associate", "Line Cook", "Prep Cook", "Dishwasher", "Delivery Driver",
@@ -51,7 +51,7 @@ const App: React.FC = () => {
 
   // Robust Auth Check on Mount
   useEffect(() => {
-    const savedUser = localStorage.getItem('envision_user');
+    const savedUser = localStorage.getItem('hirequest_user');
     if (savedUser) {
       try {
         const parsed = JSON.parse(savedUser);
@@ -59,21 +59,21 @@ const App: React.FC = () => {
           setUser(parsed);
         }
       } catch (e) {
-        localStorage.removeItem('envision_user');
+        localStorage.removeItem('hirequest_user');
       }
     }
 
-    const savedHistory = localStorage.getItem('envision_history');
+    const savedHistory = localStorage.getItem('hirequest_history');
     if (savedHistory) {
       try {
         setHistory(JSON.parse(savedHistory));
       } catch (e) {
-        localStorage.removeItem('envision_history');
+        localStorage.removeItem('hirequest_history');
       }
     }
 
-    const savedResume = localStorage.getItem('envision_resume') || '';
-    const savedJD = localStorage.getItem('envision_jd') || '';
+    const savedResume = localStorage.getItem('hirequest_resume') || '';
+    const savedJD = localStorage.getItem('hirequest_jd') || '';
     setConfig(prev => ({ ...prev, resumeText: savedResume, jobDescription: savedJD }));
     
     setIsInitialized(true);
@@ -90,11 +90,11 @@ const App: React.FC = () => {
       // For this demo, we'll optimistically update the user
       const updatedUser = { ...user, isPro: true };
       setUser(updatedUser);
-      localStorage.setItem('envision_user', JSON.stringify(updatedUser));
+      localStorage.setItem('hirequest_user', JSON.stringify(updatedUser));
       
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname);
-      alert("Welcome to Envision Paths Pro! Your account has been upgraded.");
+      alert("Welcome to HireQuest Pro! Your account has been upgraded.");
     } else if (paymentStatus === 'cancel') {
       window.history.replaceState({}, document.title, window.location.pathname);
       alert("Checkout cancelled.");
@@ -103,8 +103,8 @@ const App: React.FC = () => {
 
   // Sync Resume/JD to storage
   useEffect(() => {
-    localStorage.setItem('envision_resume', config.resumeText);
-    localStorage.setItem('envision_jd', config.jobDescription);
+    localStorage.setItem('hirequest_resume', config.resumeText);
+    localStorage.setItem('hirequest_jd', config.jobDescription);
   }, [config.resumeText, config.jobDescription]);
 
   // Generate Scenario
@@ -127,12 +127,12 @@ const App: React.FC = () => {
 
   const handleAuthenticate = (userData: { name: string; email: string }) => {
     setUser(userData);
-    localStorage.setItem('envision_user', JSON.stringify(userData));
+    localStorage.setItem('hirequest_user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('envision_user');
+    localStorage.removeItem('hirequest_user');
     setStep('onboarding');
   };
 
@@ -225,7 +225,7 @@ const App: React.FC = () => {
       
       const updatedHistory = [session, ...history].slice(0, 20);
       setHistory(updatedHistory);
-      localStorage.setItem('envision_history', JSON.stringify(updatedHistory.map(s => ({ ...s, videoUrl: undefined }))));
+      localStorage.setItem('hirequest_history', JSON.stringify(updatedHistory.map(s => ({ ...s, videoUrl: undefined }))));
       setCurrentSession(session);
       setStep('result');
     } catch (e) { 
@@ -237,7 +237,7 @@ const App: React.FC = () => {
   if (!isInitialized) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
